@@ -3,7 +3,6 @@ local RunService = game:GetService("RunService")
 
 local active = false
 
--- 플레이어 위에 붙을 파트 생성
 local beam = Instance.new("Part")
 beam.Name = "Beam"
 beam.Size = Vector3.new(1, 0.2, 1)
@@ -13,7 +12,6 @@ beam.CanCollide = false
 beam.Transparency = 1
 beam.Parent = workspace
 
--- GUI 생성
 local ScreenGui = Instance.new("ScreenGui", player.PlayerGui)
 ScreenGui.Name = "UFOGui"
 
