@@ -2,6 +2,11 @@ local player = game.Players.LocalPlayer
 local ufo = workspace:WaitForChild("UFO")
 local beam = ufo:WaitForChild("Beam")
 
+local RunService = game:GetService("RunService")
+
+local active = false
+
+-- GUI 생성
 local ScreenGui = Instance.new("ScreenGui", player.PlayerGui)
 ScreenGui.Name = "UFOGui"
 
@@ -12,18 +17,19 @@ button.Text = "UFO: OFF"
 button.BackgroundColor3 = Color3.fromRGB(30,30,30)
 button.TextColor3 = Color3.new(1,1,1)
 
-local ufoOn = false
-
 button.MouseButton1Click:Connect(function()
-    ufoOn = not ufoOn
-    button.Text = ufoOn and "UFO: ON" or "UFO: OFF"
-    if ufoOn then
+    active = not active
+    button.Text = active and "UFO: ON" or "UFO: OFF"
+end)
+
+RunService.Heartbeat:Connect(function()
+    if active then
         local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
         if root then
-            ufo:SetPrimaryPartCFrame(CFrame.new(root.Position + Vector3.new(0,10,0)))
-            beam.Enabled = true
+            beam.CFrame = CFrame.new(root.Position + Vector3.new(0,10,0))
+            beam.Transparency = 0
         end
     else
-        beam.Enabled = false
+        beam.Transparency = 1
     end
 end)
